@@ -101,10 +101,11 @@ export default function DisbursementPanel() {
 
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-stone-500">
         <span>Willow platform fee collected: {Object.entries(totalFee).map(([c, a]) => money(a as number, c)).join(" + ") || "—"}</span>
-        {result && !result.connectEnabled && (
-          <span className="text-amber-700">Connect not enabled — enable it in the Stripe dashboard to execute real transfers (numbers shown are computed).</span>
+        {result?.connectEnabled && <span className="font-medium text-emerald-700">● Live Stripe Connect transfers</span>}
+        {result?.note && <span className={result.connectEnabled ? "text-stone-500" : "text-amber-700"}>{result.note}</span>}
+        {result && !result.connectEnabled && !result.note && (
+          <span className="text-amber-700">Connect not enabled — numbers shown are computed.</span>
         )}
-        {result?.connectEnabled && <span className="text-emerald-700">Live Stripe Connect — accounts &amp; transfers visible in your Stripe dashboard.</span>}
       </div>
     </section>
   );
