@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CheckoutButton from "./components/CheckoutButton";
 
 export default function Home() {
   return (
@@ -69,12 +70,11 @@ export default function Home() {
             See exactly where your estate is exposed — and what your family would
             face today. Full report and AI companion from $9.
           </p>
-          <button
-            className="mt-6 cursor-not-allowed rounded-full bg-emerald-600 px-6 py-3 text-sm font-medium text-white opacity-70"
-            disabled
-          >
-            Get my readiness report — $9 (coming soon)
-          </button>
+          <div className="mt-6">
+            <CheckoutButton className="rounded-full bg-emerald-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-emerald-500">
+              Get my readiness report — $9
+            </CheckoutButton>
+          </div>
         </div>
       </section>
 
