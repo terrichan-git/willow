@@ -1,5 +1,5 @@
 import Link from "next/link";
-import CheckoutButton from "./components/CheckoutButton";
+import CheckoutButton from "@/app/components/CheckoutButton";
 
 export default function Home() {
   return (

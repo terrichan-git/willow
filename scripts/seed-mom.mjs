@@ -51,6 +51,16 @@ const profile = {
       notes: "Claim hotline 1800 248 8000. File within 6 months. Policy doc in the blue folder, top drawer of the study desk.",
     },
   ],
+  will: { exists: true, location: "Blue folder, top drawer of the study desk", executorOrLawyer: "Sarah (executor); Mr Tan, Tan & Co (lawyer)" },
+  propertyAssets: [
+    { type: "real estate", description: "3-room HDB flat", location: "Tampines, Singapore" },
+    { type: "vehicle", description: "Toyota Corolla", location: "Singapore" },
+  ],
+  digitalAccounts: [
+    { platform: "Gmail", notes: "primary email" },
+    { platform: "Netflix", notes: "subscription" },
+    { platform: "iCloud", notes: "photos + backup" },
+  ],
   wishes: {
     message:
       "Sarah, sayang — please don't be sad for too long. I had such a good life because of you. Eat properly, call your friends, and don't work so late. Put fresh flowers on the table on Sundays, the way I used to, and think of me when you do.",
