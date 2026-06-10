@@ -126,7 +126,7 @@ export default function Setup() {
         >
           {saving ? "Saving…" : "Save my plan"}
         </button>
-        <span className="text-xs text-stone-400">Voice sample comes next (Phase 4).</span>
+        <span className="text-xs text-stone-400">Record your voice next.</span>
       </div>
 
       {saveError && <p className="mt-3 text-sm text-red-600">{saveError}</p>}
