@@ -13,8 +13,12 @@ export async function POST(req: Request) {
 
   try {
     const price = await priceIdForLookupKey(lookupKey);
+    // Recurring prices (e.g. the $149/yr Family Protection Plan) require subscription mode;
+    // one-time prices use payment mode. Detect from the price itself.
+    const p = await stripe.prices.retrieve(price);
+    const mode = p.recurring ? "subscription" : "payment";
     const session = await stripe.checkout.sessions.create({
-      mode: "payment",
+      mode,
       line_items: [{ price, quantity: 1 }],
       success_url: `${origin}/setup?paid=1&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/?canceled=1`,
