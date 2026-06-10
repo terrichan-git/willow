@@ -56,23 +56,39 @@ export const TASK_CATEGORIES: { key: Task["category"]; label: string }[] = [
   { key: "90day", label: "Within 90 days" },
 ];
 
-// Readiness = how complete the estate plan is across the seven sections.
+// Readiness = weighted completeness across estate sections. A section can be partially
+// complete (e.g. a will that's drafted but not yet witnessed) so the score reflects real
+// room to improve rather than a flat 100%.
+const SECTION_WEIGHTS: Record<string, number> = {
+  family: 12, executor: 10, financial: 14, insurance: 14, will: 16, property: 12, digital: 10, voice: 12,
+};
+const IN_PROGRESS_LABELS: Record<string, string> = { will: "Will & legal", property: "Property & assets" };
+
+export function sectionCompleteness(p: EstateProfile): Record<string, number> {
+  if (!p) return {};
+  const props = p.propertyAssets || [];
+  return {
+    family: p.personalInfo?.familyMembers?.length ? 1 : 0,
+    executor: p.personalInfo?.executor ? 1 : 0,
+    financial: p.financialAccounts?.length ? 1 : 0,
+    insurance: p.insurancePolicies?.length ? 1 : 0,
+    will: p.will?.exists ? (p.will?.witnessed ? 1 : 0.25) : 0, // drafted but not witnessed -> partial
+    property: props.length ? (props.every((a: any) => a.value) ? 1 : 0.5) : 0, // listed but not valued -> partial
+    digital: p.digitalAccounts?.length ? 1 : 0,
+    voice: p.voiceCloneId ? 1 : 0,
+  };
+}
+
 export function readinessScore(p: EstateProfile): number {
-  if (!p) return 0;
-  const checks = [
-    p.personalInfo?.name,
-    p.personalInfo?.familyMembers?.length,
-    p.personalInfo?.executor,
-    p.financialAccounts?.length,
-    p.insurancePolicies?.length,
-    p.will?.exists,
-    p.propertyAssets?.length,
-    p.digitalAccounts?.length,
-    p.wishes?.message || p.wishesMessage,
-    p.voiceCloneId,
-  ];
-  const filled = checks.filter(Boolean).length;
-  return Math.round((filled / checks.length) * 100);
+  const c = sectionCompleteness(p);
+  const score = Object.entries(SECTION_WEIGHTS).reduce((sum, [k, w]) => sum + (c[k] ?? 0) * w, 0);
+  return Math.round(score);
+}
+
+// Sections that exist but aren't fully complete — surfaced as "in progress" on the dashboard.
+export function inProgressSections(p: EstateProfile): string[] {
+  const c = sectionCompleteness(p);
+  return Object.keys(IN_PROGRESS_LABELS).filter((k) => (c[k] ?? 0) > 0 && (c[k] ?? 0) < 1).map((k) => IN_PROGRESS_LABELS[k]);
 }
 
 // ---- Fallback demo data (mirrors scripts/seed-mom.mjs) -----------------------

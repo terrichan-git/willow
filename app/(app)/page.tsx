@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getProfile, getTasks, readinessScore, TASK_CATEGORIES, type Task } from "@/lib/estate";
+import { getProfile, getTasks, readinessScore, inProgressSections, TASK_CATEGORIES, type Task } from "@/lib/estate";
 import DisbursementPanel from "@/app/components/DisbursementPanel";
 
 export const dynamic = "force-dynamic"; // reads DynamoDB per request
@@ -9,6 +9,7 @@ export default async function Dashboard() {
   const p = profile;
   const pi = p.personalInfo || {};
   const readiness = readinessScore(p);
+  const inProgress = inProgressSections(p);
 
   const family = (pi.familyMembers || []).map((f: any) => `${f.name}${f.relationship ? ` (${f.relationship})` : ""}${f.location ? ` — ${f.location}` : ""}`);
   const accounts = (p.financialAccounts || []).map((a: any) => `${a.institution}${a.type ? ` · ${a.type}` : ""}${a.accountRef ? ` · ${a.accountRef}` : ""}`);
@@ -43,7 +44,9 @@ export default async function Dashboard() {
             <p className="mt-1 text-3xl font-semibold text-stone-900">{readiness}%</p>
           </div>
           <p className="max-w-xs text-right text-xs text-stone-400">
-            {readiness >= 80 ? "Well prepared — your family won't be left with chaos." : "A few sections still to complete."}
+            {inProgress.length > 0
+              ? `${inProgress.length} section${inProgress.length > 1 ? "s" : ""} in progress: ${inProgress.join(", ")}.`
+              : "Well prepared — your family won't be left with chaos."}
           </p>
         </div>
         <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-stone-100">
@@ -56,8 +59,8 @@ export default async function Dashboard() {
         <Card title="Family & executor" items={[...family, pi.executor && `Executor: ${pi.executor}`].filter(Boolean)} href="/setup" />
         <Card title="Financial accounts" items={accounts} href="/setup" />
         <Card title="Insurance policies" items={insurance} href="/setup" />
-        <Card title="Will & legal" items={willLines} href="/setup" />
-        <Card title="Property & assets" items={property} href="/setup" />
+        <Card title="Will & legal" items={willLines} href="/setup" inProgress={inProgress.includes("Will & legal")} />
+        <Card title="Property & assets" items={property} href="/setup" inProgress={inProgress.includes("Property & assets")} />
         <Card title="Digital accounts" items={digital} href="/setup" />
       </section>
 
@@ -94,12 +97,16 @@ export default async function Dashboard() {
   );
 }
 
-function Card({ title, items, href }: { title: string; items: string[]; href: string }) {
+function Card({ title, items, href, inProgress }: { title: string; items: string[]; href: string; inProgress?: boolean }) {
   return (
     <Link href={href} className="group rounded-2xl border border-stone-200 bg-white p-5 transition hover:border-emerald-300 hover:shadow-sm">
-      <div className="mb-3 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between gap-2">
         <h3 className="text-sm font-semibold text-stone-800">{title}</h3>
-        <span className="text-xs text-stone-300 group-hover:text-emerald-500">edit →</span>
+        {inProgress ? (
+          <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">In progress</span>
+        ) : (
+          <span className="text-xs text-stone-300 group-hover:text-emerald-500">edit →</span>
+        )}
       </div>
       {items.length === 0 ? (
         <p className="text-sm text-stone-400">Not added yet</p>
