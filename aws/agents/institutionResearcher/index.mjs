@@ -17,11 +17,15 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 
 const REGION = process.env.AWS_REGION || "us-west-2";
 // Cross-region inference profile id for Claude Sonnet 4.6 on Bedrock (set via env at deploy).
-const MODEL_ID = process.env.BEDROCK_MODEL_ID || "us.anthropic.claude-sonnet-4-6-20250930-v1:0";
+const MODEL_ID = process.env.BEDROCK_MODEL_ID || "us.anthropic.claude-sonnet-4-6";
+// Bedrock runs in its own region: in this hackathon account, Claude Sonnet 4.6 model
+// access is enabled in us-east-1 (the us. inference profile cross-routes, so calls only
+// succeed when served by an access-enabled region). DynamoDB/S3 stay in us-west-2.
+const BEDROCK_REGION = process.env.BEDROCK_REGION || "us-east-1";
 const TASKS_TABLE = process.env.TASKS_TABLE || "willow-Tasks";
 const EXA_API_KEY = process.env.EXA_API_KEY;
 
-const bedrock = new BedrockRuntimeClient({ region: REGION });
+const bedrock = new BedrockRuntimeClient({ region: BEDROCK_REGION });
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({ region: REGION }));
 
 // Agent 2 system prompt (docs/AGENT_PROMPTS.md), adapted to force machine-readable JSON.

@@ -10,7 +10,7 @@ REGION="${AWS_REGION:-us-west-2}"
 ROLE_NAME="willow-institutionResearcher-role"
 FN_NAME="institutionResearcher"
 TASKS_TABLE="willow-Tasks"
-BEDROCK_MODEL_ID="${BEDROCK_MODEL_ID:-us.anthropic.claude-sonnet-4-6-20250930-v1:0}"
+BEDROCK_MODEL_ID="${BEDROCK_MODEL_ID:-us.anthropic.claude-sonnet-4-6}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"   # -> aws/
 
 : "${EXA_API_KEY:?Set EXA_API_KEY in the environment before deploying}"
@@ -76,7 +76,8 @@ BUILD="$(mktemp -d)"
 cp "${HERE}/agents/institutionResearcher/index.mjs" "$BUILD/"
 ( cd "$BUILD" && zip -q function.zip index.mjs )
 
-ENV_VARS="Variables={EXA_API_KEY=${EXA_API_KEY},BEDROCK_MODEL_ID=${BEDROCK_MODEL_ID},TASKS_TABLE=${TASKS_TABLE}}"
+BEDROCK_REGION="${BEDROCK_REGION:-us-east-1}"
+ENV_VARS="Variables={EXA_API_KEY=${EXA_API_KEY},BEDROCK_MODEL_ID=${BEDROCK_MODEL_ID},BEDROCK_REGION=${BEDROCK_REGION},TASKS_TABLE=${TASKS_TABLE}}"
 
 if aws lambda get-function --function-name "$FN_NAME" --region "$REGION" >/dev/null 2>&1; then
   echo "Updating Lambda $FN_NAME ..."
