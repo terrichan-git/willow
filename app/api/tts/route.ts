@@ -1,8 +1,11 @@
-// Streams ElevenLabs TTS audio for the companion's reply (Matilda voice by default).
+// Streams ElevenLabs TTS audio for the companion's reply (Syalala — warm SE-Asian maternal).
 export const maxDuration = 30;
 
-const VOICE_ID = process.env.ELEVENLABS_VOICE_ID || "XrExE9yKIg1WjnnlVkGX";
-const MODEL = process.env.ELEVENLABS_MODEL || "eleven_turbo_v2_5"; // low latency for conversation
+const VOICE_ID = process.env.ELEVENLABS_VOICE_ID || "vRaj2Gd0mefB1EU96ua2";
+const MODEL = process.env.ELEVENLABS_MODEL || "eleven_v3"; // reads [emotion] tags; richer delivery
+
+// Keep any [emotion] tags in the audio text, but never let them reach a non-v3 model.
+const stripTags = (t: string) => t.replace(/\[[^\]]*\]\s*/g, "").replace(/\s+/g, " ").trim();
 
 export async function POST(req: Request) {
   const key = process.env.ELEVENLABS_API_KEY;
@@ -15,9 +18,9 @@ export async function POST(req: Request) {
     method: "POST",
     headers: { "xi-api-key": key, "content-type": "application/json" },
     body: JSON.stringify({
-      text,
+      text: MODEL === "eleven_v3" ? text : stripTags(text),
       model_id: MODEL,
-      voice_settings: { stability: 0.5, similarity_boost: 0.75, style: 0.3 },
+      voice_settings: { stability: 0.35, similarity_boost: 0.8, style: 0.55, use_speaker_boost: true },
     }),
   });
 
