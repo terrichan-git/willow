@@ -8,7 +8,7 @@ const NAV = [
   { href: "/", label: "Dashboard", icon: "M3 12l9-9 9 9M5 10v10h5v-6h4v6h5V10" },
   { href: "/setup", label: "My Estate", icon: "M4 7h16M4 12h16M4 17h10" },
   { href: "/companion", label: "Companion", icon: "M12 3a4 4 0 014 4v3a4 4 0 01-8 0V7a4 4 0 014-4zM6 11a6 6 0 0012 0M12 17v4" },
-  { href: "/research", label: "Legal & Tax", icon: "M12 3l8 4-8 4-8-4 8-4zM4 11l8 4 8-4M4 15l8 4 8-4" },
+  { href: "/legal-tax", label: "Legal & Tax", icon: "M12 3l8 4-8 4-8-4 8-4zM4 11l8 4 8-4M4 15l8 4 8-4" },
   { href: "/tasks", label: "Tasks", icon: "M5 12l4 4L19 6" },
   { href: "/settings/billing", label: "Settings", icon: "M12 8a4 4 0 100 8 4 4 0 000-8zM3 12h3M18 12h3M12 3v3M12 18v3" },
 ];
