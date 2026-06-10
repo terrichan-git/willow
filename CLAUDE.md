@@ -62,6 +62,18 @@ An agentic platform that helps people prepare their **digital estate while alive
 
 **If behind, cut in this order:** keep Institution Researcher + Companion voice + Stripe payment + AWS + Vercel; then estate flow/dashboard/Step Functions; cut revenue agent, Legal Guide, subscription analysis last. The companion voice conversation + institution research + a working payment is enough to win with a strong demo.
 
+## AWS Bedrock notes (Phase 2) — READ before wiring the Lambda
+- **Region:** us-west-2. **Model for agents:** Claude **Sonnet 4.6** on Bedrock (use Opus 4.6 only for heavy reasoning). The frontend chat stays on the Vercel AI Gateway separately.
+- **First, test in the Bedrock Playground** (console) that Claude Sonnet 4.6 and Opus 4.6 respond, before coding the Lambda.
+- **If you hit a "marketplace subscription required" error:** (a) enable model access in the Bedrock console (Model access → request/enable Anthropic Claude), and (b) attach this IAM policy to the role calling Bedrock:
+```json
+{ "Effect": "Allow",
+  "Action": ["aws-marketplace:Subscribe","aws-marketplace:ViewSubscriptions","aws-marketplace:Unsubscribe"],
+  "Resource": "*",
+  "Condition": { "StringEquals": { "aws:CalledViaLast": "bedrock.amazonaws.com" } } }
+```
+- **AI Gateway dedicated credits** are arriving as an API key via email. When it lands, set `AI_GATEWAY_API_KEY` in Vercel (Project → Environment Variables) to spend hackathon credits instead of the personal balance.
+
 ## Reference docs (read when relevant)
 - `docs/PROJECT_SPEC.md` — architecture, DynamoDB schemas, Stripe products, file structure.
 - `docs/AGENT_PROMPTS.md` — full system prompts for all 6 agents (use verbatim in Lambdas; the Companion prompt is staged in `lib/prompts.ts`).
