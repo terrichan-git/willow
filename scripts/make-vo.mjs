@@ -25,7 +25,7 @@ const VOICE_MAP = {
   // Set after the M1 A/B pick; override without editing via MOM_SG_VOICE_ID.
   MOM_SG: process.env.MOM_SG_VOICE_ID || process.env.ELEVENLABS_VOICE_ID || "XrExE9yKIg1WjnnlVkGX",
   SARAH: process.env.SARAH_VOICE_ID || "1FcaCa84nUabCNNwbzBa", // Emma — warm, young, Singaporean
-  NARRATOR: process.env.NARRATOR_VOICE_ID || "Xb7hH8MSUJpSbSDYk0k2", // Alice — soft, calm narrator
+  NARRATOR: process.env.NARRATOR_VOICE_ID || "JBFqnCBsd6RMkjVDRZzb", // George — warm male storyteller (distinct from the female leads)
 };
 
 const SETTINGS = { stability: 0.35, similarity_boost: 0.8, style: 0.55, use_speaker_boost: true };
