@@ -9,3 +9,6 @@ node_modules
 next-env.d.ts
 *.log
 .DS_Store
+
+# Demo VO audio (binaries; kept local for Canva)
+/vo
