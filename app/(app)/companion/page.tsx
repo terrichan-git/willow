@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 
 type Turn = { role: "user" | "assistant"; text: string };
 
@@ -131,17 +130,18 @@ export default function Companion() {
   const status = listening ? "Listening…" : thinking ? "Thinking…" : speaking ? "Speaking…" : "Tap the mic to talk";
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col px-4 py-6">
-      <header className="mb-4 flex items-center justify-between">
-        <Link href="/" className="text-sm text-stone-500 hover:text-stone-800">← Willow</Link>
-        <span className="text-sm font-medium text-emerald-700">
-          {deceasedName ? `${deceasedName}'s companion` : "Companion"}
-        </span>
+    <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-2xl flex-col">
+      <header className="mb-5">
+        <p className="eyebrow mb-1.5">Companion</p>
+        <h1 className="font-display text-[30px] font-normal leading-tight text-onyx">
+          {deceasedName ? `${deceasedName}'s companion.` : "Your companion."}
+        </h1>
+        <p className="mt-1 text-sm text-ink-muted">A two-way conversation, in their own voice.</p>
       </header>
 
-      <div className="flex-1 space-y-4 overflow-y-auto rounded-2xl border border-stone-200 bg-white p-5">
+      <div className="flex-1 space-y-4 overflow-y-auto rounded-2xl border border-hairline bg-paper p-5 shadow-[0_1px_3px_rgba(28,58,46,0.05)]">
         {turns.length === 0 && (
-          <p className="py-10 text-center text-stone-400">
+          <p className="py-10 text-center text-ink-faint">
             This is a two-way conversation in {deceasedName ?? "your loved one"}&apos;s voice.
             <br />Tap the mic and speak — they&apos;re listening.
           </p>
@@ -151,28 +151,28 @@ export default function Companion() {
             <div
               className={
                 "inline-block max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2 text-sm " +
-                (t.role === "user" ? "bg-emerald-700 text-white" : "bg-stone-100 text-stone-800")
+                (t.role === "user" ? "bg-sage-soft text-onyx" : "bg-chalk text-ink")
               }
             >
               {t.text}
             </div>
           </div>
         ))}
-        {thinking && <p className="text-left text-xs text-stone-400">…</p>}
+        {thinking && <p className="text-left text-xs text-ink-faint">…</p>}
       </div>
 
-      {error && <p className="mt-3 text-center text-sm text-red-600">{error}</p>}
+      {error && <p className="mt-3 text-center text-sm text-clay">{error}</p>}
 
       {legalGuide && !legalGuide.error && (
-        <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50/60 p-5 text-sm">
+        <div className="mt-4 rounded-2xl border border-hairline bg-paper p-5 text-sm">
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="font-semibold text-amber-900">Legal Guide — cross-border estate research</h2>
-            <span className="rounded-full bg-amber-200 px-2.5 py-1 text-xs font-medium text-amber-900">
+            <h2 className="font-display text-[17px] font-medium text-onyx">Legal Guide — cross-border estate research</h2>
+            <span className="rounded-full bg-pending-soft px-2.5 py-1 text-xs font-medium text-pending">
               recommend professional review
             </span>
           </div>
-          {legalGuide.summary && <p className="text-stone-700">{legalGuide.summary}</p>}
-          <dl className="mt-3 space-y-1 text-stone-700">
+          {legalGuide.summary && <p className="text-ink">{legalGuide.summary}</p>}
+          <dl className="mt-3 space-y-1 text-ink">
             {legalGuide.deceasedCountry?.inheritanceOrEstateTax && (
               <Row k={legalGuide.deceasedCountry.jurisdiction} v={legalGuide.deceasedCountry.inheritanceOrEstateTax} />
             )}
@@ -189,11 +189,11 @@ export default function Companion() {
           </dl>
           {!!legalGuide.sources?.length && (
             <div className="mt-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Sources</p>
+              <p className="eyebrow !text-ink-muted text-xs">Sources</p>
               <ul className="mt-1 space-y-0.5">
                 {legalGuide.sources.slice(0, 5).map((s: any, i: number) => (
                   <li key={i}>
-                    <a className="text-blue-600 underline" href={s.url} target="_blank" rel="noreferrer">
+                    <a className="text-teal underline" href={s.url} target="_blank" rel="noreferrer">
                       {s.title || s.url}
                     </a>
                   </li>
@@ -201,7 +201,7 @@ export default function Companion() {
               </ul>
             </div>
           )}
-          {legalGuide.disclaimer && <p className="mt-3 text-xs italic text-stone-500">{legalGuide.disclaimer}</p>}
+          {legalGuide.disclaimer && <p className="mt-3 text-xs italic text-ink-muted">{legalGuide.disclaimer}</p>}
         </div>
       )}
 
@@ -210,8 +210,8 @@ export default function Companion() {
           onClick={toggleMic}
           disabled={busy}
           className={
-            "flex h-20 w-20 items-center justify-center rounded-full text-white shadow-lg transition disabled:opacity-50 " +
-            (listening ? "animate-pulse bg-red-500" : "bg-emerald-700 hover:bg-emerald-800")
+            "flex h-20 w-20 items-center justify-center rounded-full text-chalk shadow-lg transition disabled:opacity-50 " +
+            (listening ? "animate-pulse bg-clay" : "bg-teal hover:bg-teal-deep")
           }
           aria-label="Microphone"
         >
@@ -220,15 +220,15 @@ export default function Companion() {
             <path d="M5 10a7 7 0 0 0 14 0M12 17v5" />
           </svg>
         </button>
-        <p className="text-sm text-stone-500">{status}</p>
+        <p className="text-sm text-ink-muted">{status}</p>
 
-        <label className="flex items-center gap-2 text-xs text-stone-500">
+        <label className="flex items-center gap-2 text-xs text-ink-muted">
           <input type="checkbox" checked={continuous} onChange={(e) => setContinuous(e.target.checked)} />
           Continuous conversation (re-open mic after each reply)
         </label>
 
         {!supported && (
-          <p className="text-center text-xs text-amber-700">
+          <p className="text-center text-xs text-pending">
             Speech recognition isn&apos;t supported in this browser — use Chrome, or type below.
           </p>
         )}
@@ -238,12 +238,12 @@ export default function Companion() {
             value={textInput}
             onChange={(e) => setTextInput(e.target.value)}
             placeholder="…or type instead"
-            className="flex-1 rounded-full border border-stone-300 px-4 py-2 text-sm outline-none focus:border-emerald-500"
+            className="flex-1 rounded-full border border-edge bg-paper px-4 py-2 text-sm outline-none focus:border-teal"
           />
           <button
             type="submit"
             disabled={busy}
-            className="rounded-full bg-stone-800 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+            className="rounded-full bg-onyx px-4 py-2 text-sm font-medium text-chalk disabled:opacity-50"
           >
             Send
           </button>
@@ -256,7 +256,7 @@ export default function Companion() {
 function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex gap-2">
-      <dt className="w-32 shrink-0 font-medium text-stone-500">{k}</dt>
+      <dt className="w-32 shrink-0 font-medium text-ink-muted">{k}</dt>
       <dd className="flex-1">{v}</dd>
     </div>
   );
