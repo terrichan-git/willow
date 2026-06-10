@@ -128,12 +128,12 @@ export default function Setup() {
       {/* Journey stepper */}
       <ol className="mb-6 flex flex-wrap items-center gap-1">
         {[
-          { n: 1, label: "Tell Willow about your estate", current: true },
-          { n: 2, label: "Record your voice" },
-          { n: 3, label: "Your dashboard" },
+          { n: 1, label: "Tell Willow about your estate", href: "/setup", current: true },
+          { n: 2, label: "Record your voice", href: "/voice" },
+          { n: 3, label: "Your dashboard", href: "/" },
         ].map((s, i) => (
           <li key={s.n} className="flex items-center">
-            <span className="flex items-center gap-2 rounded-full px-2.5 py-1.5">
+            <a href={s.href} className="flex items-center gap-2 rounded-full px-2.5 py-1.5 transition hover:bg-sage-mist">
               <span
                 className={
                   "flex h-[22px] w-[22px] items-center justify-center rounded-full text-[11.5px] font-semibold " +
@@ -143,7 +143,7 @@ export default function Setup() {
                 {s.n}
               </span>
               <span className={"whitespace-nowrap text-xs " + (s.current ? "font-medium text-onyx" : "text-ink-muted")}>{s.label}</span>
-            </span>
+            </a>
             {i < 2 && <span className="mx-1 h-px w-5 bg-edge" aria-hidden />}
           </li>
         ))}
@@ -214,7 +214,7 @@ export default function Setup() {
               >
                 {saving ? "Saving…" : "Save my plan"}
               </button>
-              <span className="text-xs text-ink-faint">Record your voice next.</span>
+              <a href="/voice" className="text-xs text-teal underline underline-offset-[3px] hover:text-teal-deep">Record your voice next →</a>
             </div>
             {saveError && <p className="mt-2 text-sm text-clay">{saveError}</p>}
             {saved && (

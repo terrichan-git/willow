@@ -8,6 +8,7 @@ import { useState } from "react";
 const NAV = [
   { href: "/", label: "Dashboard", icon: "M3 12l9-9 9 9M5 10v10h5v-6h4v6h5V10" },
   { href: "/setup", label: "My Estate", icon: "M4 7h16M4 12h16M4 17h10" },
+  { href: "/voice", label: "Record your voice", icon: "M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4" },
   { href: "/companion", label: "Companion", icon: "M12 3a4 4 0 014 4v3a4 4 0 01-8 0V7a4 4 0 014-4zM6 11a6 6 0 0012 0M12 17v4" },
   { href: "/legal-tax", label: "Legal & Tax", icon: "M12 3l8 4-8 4-8-4 8-4zM4 11l8 4 8-4M4 15l8 4 8-4" },
   { href: "/tasks", label: "Tasks", icon: "M5 12l4 4L19 6" },
@@ -70,7 +71,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex md:w-60 md:flex-col md:fixed md:inset-y-0 md:border-r md:border-hairline md:bg-sunken md:px-4 md:py-5">
+      <aside className="hidden md:flex md:w-[248px] md:flex-col md:fixed md:inset-y-0 md:border-r md:border-hairline md:bg-sunken md:px-4 md:py-5">
         <Brand />
         <div className="mt-8 flex-1">
           <NavLinks pathname={pathname} />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import VoiceWave from "@/app/components/VoiceWave";
 
 type Turn = { role: "user" | "assistant"; text: string };
 
@@ -150,8 +151,10 @@ export default function Companion() {
           <div key={i} className={t.role === "user" ? "text-right" : "text-left"}>
             <div
               className={
-                "inline-block max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2 text-sm " +
-                (t.role === "user" ? "bg-sage-soft text-onyx" : "bg-chalk text-ink")
+                "willow-rise inline-block max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-3 " +
+                (t.role === "user"
+                  ? "bg-teal text-sm text-chalk"
+                  : "font-display bg-obsidian text-[16px] font-light italic leading-relaxed text-chalk")
               }
             >
               {t.text}
@@ -220,7 +223,13 @@ export default function Companion() {
             <path d="M5 10a7 7 0 0 0 14 0M12 17v5" />
           </svg>
         </button>
-        <p className="text-sm text-ink-muted">{status}</p>
+        <div className="flex h-8 items-center">
+          {speaking ? (
+            <VoiceWave bars={28} height={26} active color="var(--color-teal)" />
+          ) : (
+            <p className="text-sm text-ink-muted">{status}</p>
+          )}
+        </div>
 
         <label className="flex items-center gap-2 text-xs text-ink-muted">
           <input type="checkbox" checked={continuous} onChange={(e) => setContinuous(e.target.checked)} />
