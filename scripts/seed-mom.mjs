@@ -1,7 +1,9 @@
-// Seed a demo "Mom" EstateProfile so the Companion references real specifics.
+// Seed the demo "Mom" EstateProfile to match DEMO_SCRIPT.md.
 // Run: node --env-file=.env.local scripts/seed-mom.mjs
 //
-// estateId == userId == "mom-demo" (the Companion loads by estateId).
+// estateId == userId == "mom-demo". Margaret Chen (SG resident); daughter Sarah in
+// New York; cross-border estate: CPF + DBS (SG, clean) + a US brokerage holding
+// US-situs shares (triggers the SG->US tax beat). AIA life policy. Warm everyday voice.
 
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
@@ -18,37 +20,45 @@ const profile = {
   personalInfo: {
     name: "Margaret Chen",
     preferredName: "Mom",
-    dob: "1958-03-12",
+    dob: "1959-07-21",
     jurisdiction: "Singapore",
+    residence: "Singapore",
     familyMembers: [
-      { name: "Terri", relationship: "daughter", nickname: "my little sparrow" },
-      { name: "Daniel", relationship: "son", nickname: "Danny boy" },
+      {
+        name: "Sarah",
+        relationship: "daughter",
+        nickname: "sayang",
+        location: "New York, USA",
+        heirJurisdiction: "United States",
+        notes: "Only child. Moved to NYC for work. Primary heir and executor.",
+      },
     ],
-    executor: "Terri",
+    executor: "Sarah",
   },
   financialAccounts: [
-    { institution: "DBS Bank", type: "savings", accountRef: "ending 4471", notes: "Joint account with Daniel; main household account." },
-    { institution: "OCBC", type: "fixed deposit", accountRef: "ending 9920", notes: "Matures Dec 2026." },
-    { institution: "CPF", type: "retirement", accountRef: "NRIC-linked", notes: "Nomination on file lists Terri and Daniel 50/50." },
+    { institution: "CPF", type: "retirement", situs: "Singapore", accountRef: "NRIC-linked", notes: "Nomination on file names Sarah as sole beneficiary. Passes outside probate; no SG inheritance tax." },
+    { institution: "DBS Bank", type: "savings", situs: "Singapore", accountRef: "ending 4471", notes: "Main household account in SGD. Singapore-situs; passes cleanly to Sarah." },
+    { institution: "Interactive Brokers (US)", type: "brokerage", situs: "United States", accountRef: "ending 8830", notes: "Holds US-listed shares (Apple, Microsoft) — US-SITUS assets. Subject to US non-resident estate tax above ~US$60,000 exemption. This is the cross-border issue Sarah will face." },
   ],
   insurancePolicies: [
     {
-      provider: "Prudential",
+      provider: "AIA",
       type: "life insurance",
-      policyNumber: "PRU-SG-88245",
-      sumAssured: "SGD 250,000",
-      beneficiaries: "Terri and Daniel",
-      notes: "Claim hotline 1800 333 0333. File within 6 months. Policy doc in the blue folder in the study drawer.",
+      policyNumber: "AIA-SG-77231",
+      sumAssured: "SGD 300,000",
+      beneficiaries: "Sarah",
+      situs: "Singapore",
+      notes: "Claim hotline 1800 248 8000. File within 6 months. Policy doc in the blue folder, top drawer of the study desk.",
     },
   ],
   wishes: {
     message:
-      "Tell Terri and Danny I love them more than all the stars. Don't fight over money — it was never the point. Take care of each other, and put fresh flowers on the table on Sundays like I used to.",
-    funeral: "Simple Buddhist service, no fuss. White lilies. Donations to the SPCA instead of wreaths.",
-    documentsLocation: "Will and policies are in the blue folder, top drawer of the study desk. Spare keys with Auntie Lin.",
+      "Sarah, sayang — please don't be sad for too long. I had such a good life because of you. Eat properly, call your friends, and don't work so late. Put fresh flowers on the table on Sundays, the way I used to, and think of me when you do.",
+    funeral: "Simple Buddhist service, white lilies. Donations to the SPCA instead of wreaths.",
+    documentsLocation: "Will, CPF nomination, AIA policy and the brokerage statements are all in the blue folder, top drawer of the study desk. Spare keys with Auntie Lin next door.",
   },
   personalityContext:
-    "Margaret is warm, gently funny, and a little bossy in a loving way. She calls Terri 'my little sparrow' and Daniel 'Danny boy'. Common phrases: 'Aiyoh', 'Have you eaten?', 'Don't worry so much, my love.' She always leads with feelings before practical matters, and softens hard news with humor. She was a primary school teacher for 30 years, deeply patient, and believes family is everything. She tends to say 'okay?' at the end of reassurances.",
+    "Margaret is warm, gently funny, and endlessly caring. She calls Sarah 'sayang' and always asks 'Have you eaten?' before anything else. Singaporean cadence — an affectionate 'aiyoh', the occasional 'lah'. She knows Sarah's world: the packed East-West MRT line, working too late. Common phrases: 'Don't worry so much, my love', 'The bad days are lighter when you say them out loud — you taught me that.' She leads with feelings first, then practical help, and softens hard news with warmth. She was a primary-school teacher for 30 years: patient, reassuring, believes family is everything.",
   voiceCloneId: process.env.ELEVENLABS_VOICE_ID || "XrExE9yKIg1WjnnlVkGX",
   status: "activated",
   plan: "full",
@@ -56,4 +66,4 @@ const profile = {
 };
 
 await ddb.send(new PutCommand({ TableName: TABLE, Item: profile }));
-console.log(`Seeded demo profile -> ${TABLE} (estateId/userId = "mom-demo", name = "${profile.personalInfo.name}")`);
+console.log(`Seeded -> ${TABLE}: ${profile.personalInfo.name} (estateId "mom-demo"), heir Sarah in New York, US brokerage situs for the cross-border beat.`);

@@ -19,6 +19,7 @@ export default function Companion() {
   const [error, setError] = useState<string | null>(null);
   const [supported, setSupported] = useState(true);
   const [textInput, setTextInput] = useState("");
+  const [legalGuide, setLegalGuide] = useState<any | null>(null);
 
   const recogRef = useRef<SpeechRec | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -73,6 +74,7 @@ export default function Companion() {
         const data = await res.json();
         if (data.error) throw new Error(data.error);
         if (data.deceasedName) setDeceasedName(data.deceasedName);
+        if (data.legalGuide) setLegalGuide(data.legalGuide);
         setTurns((t) => [...t, { role: "assistant", text: data.reply }]);
         setThinking(false);
         await speak(data.reply);
@@ -161,6 +163,48 @@ export default function Companion() {
 
       {error && <p className="mt-3 text-center text-sm text-red-600">{error}</p>}
 
+      {legalGuide && !legalGuide.error && (
+        <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50/60 p-5 text-sm">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="font-semibold text-amber-900">Legal Guide — cross-border estate research</h2>
+            <span className="rounded-full bg-amber-200 px-2.5 py-1 text-xs font-medium text-amber-900">
+              recommend professional review
+            </span>
+          </div>
+          {legalGuide.summary && <p className="text-stone-700">{legalGuide.summary}</p>}
+          <dl className="mt-3 space-y-1 text-stone-700">
+            {legalGuide.deceasedCountry?.inheritanceOrEstateTax && (
+              <Row k={legalGuide.deceasedCountry.jurisdiction} v={legalGuide.deceasedCountry.inheritanceOrEstateTax} />
+            )}
+            {legalGuide.heirCountry?.situsRules && (
+              <Row k={legalGuide.heirCountry.jurisdiction} v={legalGuide.heirCountry.situsRules} />
+            )}
+            {!!legalGuide.heirCountry?.reportingForms?.length && (
+              <Row k="Reporting" v={legalGuide.heirCountry.reportingForms.join(" · ")} />
+            )}
+            {legalGuide.recommendedRoute?.summary && <Row k="Recommended" v={legalGuide.recommendedRoute.summary} />}
+            {legalGuide.willVsTrust?.recommendation && (
+              <Row k="Will vs trust" v={`${legalGuide.willVsTrust.recommendation} — ${legalGuide.willVsTrust.why}`} />
+            )}
+          </dl>
+          {!!legalGuide.sources?.length && (
+            <div className="mt-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Sources</p>
+              <ul className="mt-1 space-y-0.5">
+                {legalGuide.sources.slice(0, 5).map((s: any, i: number) => (
+                  <li key={i}>
+                    <a className="text-blue-600 underline" href={s.url} target="_blank" rel="noreferrer">
+                      {s.title || s.url}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {legalGuide.disclaimer && <p className="mt-3 text-xs italic text-stone-500">{legalGuide.disclaimer}</p>}
+        </div>
+      )}
+
       <div className="mt-5 flex flex-col items-center gap-3">
         <button
           onClick={toggleMic}
@@ -206,5 +250,14 @@ export default function Companion() {
         </form>
       </div>
     </main>
+  );
+}
+
+function Row({ k, v }: { k: string; v: string }) {
+  return (
+    <div className="flex gap-2">
+      <dt className="w-32 shrink-0 font-medium text-stone-500">{k}</dt>
+      <dd className="flex-1">{v}</dd>
+    </div>
   );
 }
