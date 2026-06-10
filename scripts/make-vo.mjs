@@ -40,7 +40,7 @@ const stripTags = (t) => t.replace(/\[[^\]]*\]\s*/g, "").replace(/\s+/g, " ").tr
 
 // Exact tagged VO line list from Project Happiness/DEMO_VIDEO_PLAN.md.
 const LINES = [
-  { role: "narrator", voice: "NARRATOR", out: "vo/N1.mp3", text: "[gently] We spend our whole lives taking care of the people we love. But almost no one plans for the part that comes after." },
+  { role: "maria", voice: "MOM_SG", out: "vo/N1.mp3", text: "[gently] Sometimes I lie awake and think… if I wasn't here tomorrow, would the people I love be okay? [softly] Not just the money. Would my daughter know which bank to call… [emotional] and would she still have someone to talk to on a bad day? [gently] We write wills for our assets. [softly] Nobody leaves a plan for the love." },
   { role: "narrator", voice: "NARRATOR", out: "vo/N2.mp3", text: "[warmly] Maria did. While she was well, she sat with Willow and organized everything — her accounts, her wishes. [softly] And then, her voice." },
   { role: "narrator", voice: "NARRATOR", out: "vo/N3.mp3", text: "[gently] Months later, her daughter Sarah opened it." },
   { role: "sarah", voice: "SARAH", out: "vo/S1.mp3", text: "[sad] Mum… I had such a hard day… [emotional] I keep reaching for the phone… to call you…" },
