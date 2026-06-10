@@ -28,7 +28,13 @@ const VOICE_MAP = {
   NARRATOR: process.env.NARRATOR_VOICE_ID || "JBFqnCBsd6RMkjVDRZzb", // George — warm male storyteller (distinct from the female leads)
 };
 
-const SETTINGS = { stability: 0.35, similarity_boost: 0.8, style: 0.55, use_speaker_boost: true };
+// Per-voice settings. SARAH (Jane) reads fast, so she gets higher stability, lower
+// style, and slower speed to calm the pace.
+const DEFAULT_SETTINGS = { stability: 0.35, similarity_boost: 0.8, style: 0.55, use_speaker_boost: true };
+const SETTINGS_BY_VOICE = {
+  SARAH: { stability: 0.65, similarity_boost: 0.8, style: 0.2, use_speaker_boost: true, speed: 0.7 },
+};
+const settingsFor = (voice) => SETTINGS_BY_VOICE[voice] || DEFAULT_SETTINGS;
 
 const stripTags = (t) => t.replace(/\[[^\]]*\]\s*/g, "").replace(/\s+/g, " ").trim();
 
@@ -37,9 +43,9 @@ const LINES = [
   { role: "narrator", voice: "NARRATOR", out: "vo/N1.mp3", text: "[gently] We spend our whole lives taking care of the people we love. But almost no one plans for the part that comes after." },
   { role: "narrator", voice: "NARRATOR", out: "vo/N2.mp3", text: "[warmly] Margaret did. While she was well, she sat with Willow and organized everything — her accounts, her wishes. [softly] And then, her voice." },
   { role: "narrator", voice: "NARRATOR", out: "vo/N3.mp3", text: "[gently] Months later, her daughter Sarah opened it." },
-  { role: "sarah", voice: "SARAH", out: "vo/S1.mp3", text: "[sad] Mum… I had such a hard day. [emotional] I keep reaching for the phone to call you." },
+  { role: "sarah", voice: "SARAH", out: "vo/S1.mp3", text: "[sad] Mum… I had such a hard day… [emotional] I keep reaching for the phone… to call you…" },
   { role: "mom", voice: "MOM_SG", out: "vo/M1.mp3", text: "[warmly] Oh… my little sparrow. [tenderly] Come here, sayang. I miss you too — [emotional] more than you know. [softly] Have you eaten or not?" },
-  { role: "sarah", voice: "SARAH", out: "vo/S2.mp3", text: "[emotional] I miss you so much." },
+  { role: "sarah", voice: "SARAH", out: "vo/S2.mp3", text: "[emotional] I miss you so much…" },
   { role: "mom", voice: "MOM_SG", out: "vo/M2.mp3", text: "[gently] I'm right here, sayang. I organized it all so you'd never face it alone. [warmly] The AIA policy — A I A, S G, seven-seven-two-three-one — it's all for you. The claim hotline is one-eight-hundred, two-four-eight, eight thousand, and you have six months. [softly] Everything's in the blue folder, top drawer of the study desk." },
   { role: "mom", voice: "MOM_SG", out: "vo/M3.mp3", text: "[tenderly] And Sarah… [emotional] please don't carry all of this on your own, okay? Lean on the people who love you. [sighs] [softly] That's all I ever wanted, my love." },
   { role: "narrator", voice: "NARRATOR", out: "vo/N4.mp3", text: "[calm] Behind her mother's voice, Willow's agents researched two countries' laws — found the policy, the deadline, the most efficient path — [warmly] and stood beside Sarah, step by step." },
@@ -53,7 +59,7 @@ async function render(line) {
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
     method: "POST",
     headers: { "xi-api-key": KEY, "content-type": "application/json" },
-    body: JSON.stringify({ text, model_id: MODEL, voice_settings: SETTINGS }),
+    body: JSON.stringify({ text, model_id: MODEL, voice_settings: settingsFor(line.voice) }),
   });
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${(await res.text().catch(() => "")).slice(0, 200)}`);
   const buf = Buffer.from(await res.arrayBuffer());
