@@ -1,0 +1,56 @@
+/* ============================================
+   Willow — Color tokens
+   Source: Willow Brandbook by Pomelli (uploads/)
+   ============================================ */
+
+:root {
+  /* ---- Base palette (brandbook, verbatim) ---- */
+  --willow-onyx: #1C3A2E;        /* "Onyx Black" — deep forest green; primary ink */
+  --willow-teal: #1F6F54;        /* "Ocean Teal" — primary action color */
+  --willow-sage: #8FB996;        /* "Sage Green" — soft botanical accent */
+  --willow-chalk: #ECF2EC;       /* "Chalk White" — canvas background */
+  --willow-obsidian: #1C2620;    /* "Obsidian Black" — darkest surface / footer */
+
+  /* ---- Derived tints & shades (color-mix on the palette) ---- */
+  --willow-paper: #F7FAF7;       /* near-white card surface, one step above chalk */
+  --willow-chalk-deep: #DFE9DF;  /* pressed / hairline-adjacent chalk */
+  --willow-sage-soft: #DCE9DE;   /* sage at ~30% on chalk — selected fills, badges */
+  --willow-sage-mist: #E6EFE7;   /* faintest sage wash — hover fills */
+  --willow-teal-deep: #195C46;   /* teal hover / pressed */
+  --willow-teal-soft: #D2E2DB;   /* teal at ~20% — informational fills */
+  --willow-olive: #586330;       /* logo ink — brand mark & illustration accents only */
+
+  /* ---- Semantic: text ---- */
+  --text-display: var(--willow-onyx);       /* Fraunces headlines */
+  --text-body: #33473C;                      /* onyx lifted slightly for long-form */
+  --text-muted: #66796D;                     /* secondary, captions, metadata */
+  --text-faint: #93A399;                     /* placeholders, disabled */
+  --text-on-action: var(--willow-chalk);     /* text on teal/onyx fills */
+  --text-link: var(--willow-teal);
+
+  /* ---- Semantic: surfaces ---- */
+  --surface-page: var(--willow-chalk);
+  --surface-card: var(--willow-paper);
+  --surface-raised: #FDFEFD;
+  --surface-sunken: #E3ECE4;
+  --surface-inverse: var(--willow-obsidian);
+  --surface-action: var(--willow-teal);
+  --surface-action-hover: var(--willow-teal-deep);
+
+  /* ---- Semantic: borders ---- */
+  --border-hairline: #D7E2D8;
+  --border-soft: #C6D6C9;
+  --border-strong: var(--willow-sage);
+  --border-focus: var(--willow-teal);
+
+  /* ---- Semantic: status ---- */
+  --status-success: var(--willow-teal);
+  --status-success-soft: var(--willow-teal-soft);
+  --status-pending: #8A6D3B;                 /* warm ochre — in-progress, gentle */
+  --status-pending-soft: #EFE7D8;
+  --status-error: #8C4A3C;                   /* muted clay — never alarm-red */
+  --status-error-soft: #F0E0DB;
+
+  /* ---- Focus ring ---- */
+  --ring-focus: 0 0 0 3px rgba(31, 111, 84, 0.25);
+}

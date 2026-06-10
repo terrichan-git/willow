@@ -1,12 +1,68 @@
 @import "tailwindcss";
 
-:root {
-  --background: #fbfaf7;
-  --foreground: #1c2620;
+/* ============================================================
+   Willow design system — tokens from design/willow-design-system
+   Mapped into the Tailwind v4 theme so utilities like bg-paper,
+   text-onyx, border-hairline, font-display work everywhere.
+   ============================================================ */
+@theme {
+  /* Base palette (brandbook) */
+  --color-onyx: #1c3a2e; /* deep forest ink */
+  --color-teal: #1f6f54; /* primary action */
+  --color-teal-deep: #195c46; /* action hover/pressed */
+  --color-teal-soft: #d2e2db; /* informational fills */
+  --color-sage: #8fb996; /* botanical accent */
+  --color-sage-soft: #dce9de; /* selected fills, badges */
+  --color-sage-mist: #e6efe7; /* faint hover wash */
+  --color-chalk: #ecf2ec; /* page canvas */
+  --color-chalk-deep: #dfe9df;
+  --color-obsidian: #1c2620; /* darkest surface */
+  --color-olive: #586330; /* logo ink only */
+
+  /* Surfaces */
+  --color-paper: #f7faf7; /* card surface */
+  --color-raised: #fdfefd;
+  --color-sunken: #e3ece4; /* sidebar */
+
+  /* Text */
+  --color-ink: #33473c; /* body */
+  --color-ink-muted: #66796d;
+  --color-ink-faint: #93a399;
+
+  /* Borders */
+  --color-hairline: #d7e2d8;
+  --color-edge: #c6d6c9;
+
+  /* Status (never alarm-red) */
+  --color-pending: #8a6d3b; /* warm ochre */
+  --color-pending-soft: #efe7d8;
+  --color-clay: #8c4a3c; /* muted clay errors */
+  --color-clay-soft: #f0e0db;
+
+  /* Type */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), -apple-system, "Segoe UI", sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--color-chalk);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Fraunces display headlines: light weight, tight tracking, display optical size */
+.font-display {
+  font-variation-settings: "opsz" 40;
+  letter-spacing: -0.015em;
+}
+
+/* Eyebrow labels — uppercase, spaced, teal */
+.eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-teal);
 }

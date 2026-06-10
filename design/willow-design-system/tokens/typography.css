@@ -1,0 +1,49 @@
+/* ============================================
+   Willow — Typography tokens
+   Fraunces (primary serif) · Inter (secondary sans)
+   ============================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-serif-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans-body: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+
+  /* ---- Display / headline scale (Fraunces) ---- */
+  --type-hero: 300 clamp(40px, 5vw, 64px)/1.08 var(--font-serif-display);
+  --type-h1: 350 40px/1.12 var(--font-serif-display);
+  --type-h2: 400 30px/1.18 var(--font-serif-display);
+  --type-h3: 450 23px/1.25 var(--font-serif-display);
+  --type-quote: italic 350 26px/1.35 var(--font-serif-display);
+
+  /* ---- Body / UI scale (Inter) ---- */
+  --type-body-lg: 400 17px/1.6 var(--font-sans-body);
+  --type-body: 400 15px/1.6 var(--font-sans-body);
+  --type-body-sm: 400 13.5px/1.5 var(--font-sans-body);
+  --type-label: 500 14px/1.2 var(--font-sans-body);
+  --type-caption: 400 12.5px/1.4 var(--font-sans-body);
+  --type-overline: 600 11.5px/1.2 var(--font-sans-body);
+
+  /* ---- Letterspacing ---- */
+  --tracking-display: -0.015em;  /* Fraunces headlines tighten slightly */
+  --tracking-body: 0;
+  --tracking-overline: 0.1em;    /* overlines are uppercase + spaced */
+
+  /* ---- Fraunces variable axes, for finer control ---- */
+  --fraunces-optical: 'opsz' 40; /* @kind other */ /* headlines render at display optical size */
+}
+
+/* Base element defaults */
+body {
+  font: var(--type-body);
+  color: var(--text-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .willow-display {
+  font-family: var(--font-serif-display);
+  color: var(--text-display);
+  letter-spacing: var(--tracking-display);
+  font-variation-settings: var(--fraunces-optical);
+  text-wrap: balance;
+  margin: 0;
+}

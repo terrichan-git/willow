@@ -12,3 +12,11 @@ next-env.d.ts
 
 # Demo VO audio (binaries; kept local for Canva)
 /vo
+
+# Design references (screenshots/prototype/assets are local-only; tokens + app/fonts are tracked)
+/design/screenshots
+/design/prototype
+/design/assets
+/design/Willow-Portal-preview.html
+/design/willow-design-system/fonts
+/.claude/launch.json

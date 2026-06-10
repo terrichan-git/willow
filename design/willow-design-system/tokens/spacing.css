@@ -1,0 +1,45 @@
+/* ============================================
+   Willow — Spacing, radii, shadow & motion tokens
+   "Soft whitespace · Rounded elements"
+   ============================================ */
+
+:root {
+  /* ---- Spacing scale (4px base, generous by default) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* ---- Corner radii — everything is rounded ---- */
+  --radius-sm: 8px;      /* inputs, tags, small chips */
+  --radius-md: 14px;     /* buttons, list rows */
+  --radius-lg: 20px;     /* cards */
+  --radius-xl: 28px;     /* feature panels, modals */
+  --radius-pill: 999px;  /* pills, avatars, primary buttons */
+
+  /* ---- Shadows — soft, green-tinted, never harsh ---- */
+  --shadow-card: 0 1px 2px rgba(28, 58, 46, 0.05), 0 4px 16px rgba(28, 58, 46, 0.06);
+  --shadow-raised: 0 2px 6px rgba(28, 58, 46, 0.08), 0 12px 32px rgba(28, 58, 46, 0.10);
+  --shadow-overlay: 0 8px 24px rgba(28, 38, 32, 0.14), 0 24px 64px rgba(28, 38, 32, 0.18);
+  --shadow-inset: inset 0 1px 3px rgba(28, 58, 46, 0.07);
+
+  /* ---- Borders ---- */
+  --border-width: 1px;
+  --border-card: 1px solid var(--border-hairline);
+
+  /* ---- Motion — calm, unhurried fades ---- */
+  --ease-out-soft: cubic-bezier(0.25, 0.6, 0.3, 1); /* @kind other */
+  --duration-fast: 160ms; /* @kind other */
+  --duration-base: 240ms; /* @kind other */
+  --duration-slow: 420ms; /* @kind other */
+  --transition-soft: all var(--duration-base) var(--ease-out-soft);
+
+  /* ---- Layout ---- */
+  --content-max: 1080px;
+  --sidebar-width: 248px;
+}
