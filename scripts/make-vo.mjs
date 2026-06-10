@@ -24,7 +24,7 @@ const VOICE_MAP = {
   // MOM_SG: mature, warm, Singaporean/SE-Asian maternal (library voice — needs a paid plan).
   // Set after the M1 A/B pick; override without editing via MOM_SG_VOICE_ID.
   MOM_SG: process.env.MOM_SG_VOICE_ID || process.env.ELEVENLABS_VOICE_ID || "XrExE9yKIg1WjnnlVkGX",
-  SARAH: process.env.SARAH_VOICE_ID || "1FcaCa84nUabCNNwbzBa", // Emma — warm, young, Singaporean
+  SARAH: process.env.SARAH_VOICE_ID || "ljEOxtzNoGEa58anWyea", // Jane — young-sounding Singaporean (the daughter)
   NARRATOR: process.env.NARRATOR_VOICE_ID || "JBFqnCBsd6RMkjVDRZzb", // George — warm male storyteller (distinct from the female leads)
 };
 
