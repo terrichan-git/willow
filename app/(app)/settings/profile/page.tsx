@@ -14,16 +14,16 @@ export default async function ProfilePage() {
     { label: "Plan status", value: p.status },
   ];
   return (
-    <section className="max-w-lg rounded-2xl border border-stone-200 bg-white p-6">
-      <dl className="divide-y divide-stone-100">
+    <section className="max-w-lg rounded-2xl border border-hairline bg-paper p-6">
+      <dl className="divide-y divide-hairline">
         {rows.map((r) => (
           <div key={r.label} className="flex items-center justify-between py-3">
-            <dt className="text-sm text-stone-500">{r.label}</dt>
-            <dd className="text-sm font-medium text-stone-800">{r.value || "—"}</dd>
+            <dt className="text-sm text-ink-muted">{r.label}</dt>
+            <dd className="text-sm font-medium text-onyx">{r.value || "—"}</dd>
           </div>
         ))}
       </dl>
-      <p className="mt-4 text-xs text-stone-400">Profile editing is managed through your estate conversation in My Estate.</p>
+      <p className="mt-4 text-xs text-ink-faint">Profile editing is managed through your estate conversation in My Estate.</p>
     </section>
   );
 }
