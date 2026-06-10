@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getProfile, getTasks, readinessScore, TASK_CATEGORIES, type Task } from "@/lib/estate";
+import DisbursementPanel from "@/app/components/DisbursementPanel";
 
 export const dynamic = "force-dynamic"; // reads DynamoDB per request
 
@@ -59,6 +60,9 @@ export default async function Dashboard() {
         <Card title="Property & assets" items={property} href="/setup" />
         <Card title="Digital accounts" items={digital} href="/setup" />
       </section>
+
+      {/* Settle & disburse (executor) */}
+      <DisbursementPanel />
 
       {/* Task timeline */}
       <section>
