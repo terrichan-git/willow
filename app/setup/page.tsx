@@ -6,10 +6,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 type SavedProfile = {
-  personalInfo?: { name?: string | null; jurisdiction?: string | null; familyMembers?: { name: string; relationship?: string | null }[] };
+  personalInfo?: {
+    name?: string | null;
+    jurisdiction?: string | null;
+    familyMembers?: { name: string; relationship?: string | null }[];
+    executor?: string | null;
+  };
   financialAccounts?: { institution: string; type?: string | null }[];
   insurancePolicies?: { provider: string; type?: string | null }[];
-  wishes?: { message?: string | null };
+  will?: { exists?: boolean | null; location?: string | null; executorOrLawyer?: string | null };
+  propertyAssets?: { type?: string | null; description?: string | null; location?: string | null }[];
+  digitalAccounts?: { platform: string; notes?: string | null }[];
+  wishesMessage?: string | null;
 };
 
 export default function Setup() {
@@ -76,9 +84,10 @@ export default function Setup() {
         {messages.length === 0 && (
           <div className="text-left">
             <div className="inline-block max-w-[85%] rounded-2xl bg-stone-100 px-4 py-2 text-sm text-stone-800">
-              Hi — I&apos;m Willow&apos;s Legacy Builder. I&apos;ll help you organize the essentials in one calm
-              conversation: your family, a few key accounts, one insurance policy, and a message for the people you
-              love. Whenever you&apos;re ready, tell me your name and where you live.
+              Hi — I&apos;m Willow&apos;s Legacy Builder. In one calm conversation I&apos;ll help you organize the
+              essentials: your family and executor, your accounts and insurance, your will and property, your digital
+              accounts, and a message for the people you love. Whenever you&apos;re ready, tell me your name and where
+              you live.
             </div>
           </div>
         )}
@@ -129,9 +138,13 @@ export default function Setup() {
             <Field label="Name" value={saved.profile.personalInfo?.name} />
             <Field label="Jurisdiction" value={saved.profile.personalInfo?.jurisdiction} />
             <Field label="Family" value={saved.profile.personalInfo?.familyMembers?.map((f) => `${f.name}${f.relationship ? ` (${f.relationship})` : ""}`).join(", ")} />
+            <Field label="Executor" value={saved.profile.personalInfo?.executor} />
             <Field label="Accounts" value={saved.profile.financialAccounts?.map((a) => `${a.institution}${a.type ? ` · ${a.type}` : ""}`).join(", ")} />
             <Field label="Insurance" value={saved.profile.insurancePolicies?.map((p) => `${p.provider}${p.type ? ` · ${p.type}` : ""}`).join(", ")} />
-            <Field label="Wishes" value={saved.profile.wishes?.message} />
+            <Field label="Will" value={saved.profile.will ? `${saved.profile.will.exists ? "Yes" : saved.profile.will.exists === false ? "No" : "—"}${saved.profile.will.location ? ` · ${saved.profile.will.location}` : ""}` : undefined} />
+            <Field label="Property" value={saved.profile.propertyAssets?.map((p) => p.description || p.type).filter(Boolean).join(", ")} />
+            <Field label="Digital" value={saved.profile.digitalAccounts?.map((d) => d.platform).join(", ")} />
+            <Field label="Wishes" value={saved.profile.wishesMessage} />
           </dl>
         </div>
       )}

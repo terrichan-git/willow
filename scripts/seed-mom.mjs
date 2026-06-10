@@ -18,8 +18,8 @@ const profile = {
   userId: "mom-demo",
   sk: "profile",
   personalInfo: {
-    name: "Margaret Chen",
-    preferredName: "Mom",
+    name: "Maria",
+    preferredName: "Maria",
     dob: "1959-07-21",
     jurisdiction: "Singapore",
     residence: "Singapore",
@@ -58,8 +58,8 @@ const profile = {
     documentsLocation: "Will, CPF nomination, AIA policy and the brokerage statements are all in the blue folder, top drawer of the study desk. Spare keys with Auntie Lin next door.",
   },
   personalityContext:
-    "Margaret is warm, gently funny, and endlessly caring. She calls Sarah 'sayang' and always asks 'Have you eaten?' before anything else. Singaporean cadence — an affectionate 'aiyoh', the occasional 'lah'. She knows Sarah's world: the packed East-West MRT line, working too late. Common phrases: 'Don't worry so much, my love', 'The bad days are lighter when you say them out loud — you taught me that.' She leads with feelings first, then practical help, and softens hard news with warmth. She was a primary-school teacher for 30 years: patient, reassuring, believes family is everything.",
-  voiceCloneId: process.env.ELEVENLABS_VOICE_ID || "XrExE9yKIg1WjnnlVkGX",
+    "Maria is warm, gently funny, and endlessly caring. She calls Sarah 'sayang' and always asks 'Have you eaten?' before anything else. Singaporean cadence — an affectionate 'aiyoh', the occasional 'lah'. She knows Sarah's world: the packed East-West MRT line, working too late. Common phrases: 'Don't worry so much, my love', 'The bad days are lighter when you say them out loud — you taught me that.' She leads with feelings first, then practical help, and softens hard news with warmth. She was a primary-school teacher for 30 years: patient, reassuring, believes family is everything.",
+  voiceCloneId: process.env.ELEVENLABS_VOICE_ID || "vRaj2Gd0mefB1EU96ua2",
   status: "activated",
   plan: "full",
   updatedAt: new Date().toISOString(),

@@ -22,14 +22,30 @@ const ProfileSchema = z.object({
     name: z.string().nullable(),
     jurisdiction: z.string().nullable(),
     familyMembers: z.array(z.object({ name: z.string(), relationship: z.string().nullable() })),
+    executor: z.string().nullable(),
   }),
   financialAccounts: z.array(
     z.object({ institution: z.string(), type: z.string().nullable(), value: z.string().nullable() })
   ),
   insurancePolicies: z.array(
-    z.object({ provider: z.string(), type: z.string().nullable(), policyNumber: z.string().nullable() })
+    z.object({
+      provider: z.string(),
+      type: z.string().nullable(),
+      policyNumber: z.string().nullable(),
+      beneficiary: z.string().nullable(),
+    })
   ),
-  wishes: z.object({ message: z.string().nullable(), voiceNotePlaceholder: z.boolean() }),
+  will: z.object({
+    exists: z.boolean().nullable(),
+    location: z.string().nullable(),
+    executorOrLawyer: z.string().nullable(),
+  }),
+  propertyAssets: z.array(
+    z.object({ type: z.string().nullable(), description: z.string().nullable(), location: z.string().nullable() })
+  ),
+  digitalAccounts: z.array(z.object({ platform: z.string(), notes: z.string().nullable() })),
+  wishesMessage: z.string().nullable(),
+  voiceNotePlaceholder: z.boolean(),
 });
 
 type UIMessage = { role: string; parts?: { type: string; text?: string }[]; content?: string };
