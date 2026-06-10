@@ -41,15 +41,16 @@ const stripTags = (t) => t.replace(/\[[^\]]*\]\s*/g, "").replace(/\s+/g, " ").tr
 // Exact tagged VO line list from Project Happiness/DEMO_VIDEO_PLAN.md.
 const LINES = [
   { role: "maria", voice: "MOM_SG", out: "vo/N1.mp3", text: "[gently] Sometimes I lie awake and think… if I wasn't here tomorrow, would the people I love be okay? [softly] Not just the money. Would my daughter know which bank to call… [emotional] and would she still have someone to talk to on a bad day? [gently] We write wills for our assets. [softly] Nobody leaves a plan for the love." },
-  { role: "narrator", voice: "NARRATOR", out: "vo/N2.mp3", text: "[warmly] Maria did. While she was well, she sat with Willow and organized everything — her accounts, her wishes. [softly] And then, her voice." },
-  { role: "narrator", voice: "NARRATOR", out: "vo/N3.mp3", text: "[gently] Months later, her daughter Sarah opened it." },
-  { role: "sarah", voice: "SARAH", out: "vo/S1.mp3", text: "[sad] Mum… I had such a hard day… [emotional] I keep reaching for the phone… to call you…" },
-  { role: "mom", voice: "MOM_SG", out: "vo/M1.mp3", text: "[warmly] Oh… my little sparrow. [tenderly] Come here, sayang. I miss you too — [emotional] more than you know. [softly] Have you eaten or not?" },
-  { role: "sarah", voice: "SARAH", out: "vo/S2.mp3", text: "[emotional] I miss you so much…" },
-  { role: "mom", voice: "MOM_SG", out: "vo/M2.mp3", text: "[gently] I'm right here, sayang. I organized it all so you'd never face it alone. [warmly] The AIA policy — A I A, S G, seven-seven-two-three-one — names you as the beneficiary. The claim hotline is one-eight-hundred, two-four-eight, eight-thousand, and you have six months. [softly] Everything's in the blue folder, top drawer of the study desk." },
-  { role: "mom", voice: "MOM_SG", out: "vo/M3.mp3", text: "[tenderly] And Sarah… [emotional] you don't have to be strong all the time, okay? Lean on the people who love you. [sighs] [softly] I'm so proud of you. That's all I ever wanted, my love." },
-  { role: "narrator", voice: "NARRATOR", out: "vo/N4.mp3", text: "[calm] Behind her mother's voice, Willow's agents researched two countries' laws — found the policy, the deadline, the most efficient path — [warmly] and stood beside Sarah, step by step." },
-  { role: "narrator", voice: "NARRATOR", out: "vo/N5.mp3", text: "[gently] Willow. [softly] Leave them clarity. Leave them your voice." },
+  { role: "maria", voice: "MOM_SG", out: "vo/N2.mp3", text: "[warmly] So I sat down with Willow. Just a conversation — my accounts and insurance, my will, the house, even my digital logins, and the people I'd want told first. [softly] It turned everything in my head into one calm plan." },
+  { role: "maria", voice: "MOM_SG", out: "vo/N3.mp3", text: "[gently] And it didn't stop at organizing — it made the plan stronger. A will can be contested, tied up in probate… so for Sarah, Willow suggested a trust, and showed me how it could keep growing for her, [warmly] even after I'm gone." },
+  { role: "maria", voice: "MOM_SG", out: "vo/N4.mp3", text: "[tenderly] And then it asked me to do the one thing no will ever has. [softly] To leave my voice — so I could still be here for her." },
+  { role: "sarah", voice: "SARAH", out: "vo/S1.mp3", text: "[sad] Mum… I had the worst day. The MRT was so packed… [emotional] and I just miss talking to you." },
+  { role: "maria", voice: "MOM_SG", out: "vo/M1.mp3", text: "[warmly] Aiyoh, I know that squeeze on the East-West line… [tenderly] come here, sayang. Tell me everything. [softly] The bad days are lighter when you say them out loud — you taught me that." },
+  { role: "sarah", voice: "SARAH", out: "vo/S2.mp3", text: "[gently] Mum… what happens to all your money — the US shares — when you're gone? [softly] I'm in New York now." },
+  { role: "maria", voice: "MOM_SG", out: "vo/M2.mp3", text: "[gently] I've got you, sayang. Here in Singapore there's no estate tax — the CPF and the DBS savings pass to you cleanly. [warmly] But the US shares are US-situs, and America taxes those above only sixty thousand — so get a cross-border advisor early. You'll file a Form 3520, but that's only reporting, not a tax. [softly] The AIA policy and everything else is in the blue folder, in the study." },
+  { role: "maria", voice: "MOM_SG", out: "vo/M3.mp3", text: "[tenderly] And Sarah… [emotional] you don't have to be strong all the time, okay? [softly] I'm so proud of you. That's all I ever wanted, my love." },
+  { role: "narrator", voice: "NARRATOR", out: "vo/N5.mp3", text: "[calm] Every word was real. Behind Maria's voice, agents on AWS researched two countries' estate laws with Exa — and chose the most cost-efficient path." },
+  { role: "narrator", voice: "NARRATOR", out: "vo/N6.mp3", text: "[gently] Willow. [softly] Leave them clarity. Leave them your voice." },
 ];
 
 async function render(line) {
