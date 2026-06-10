@@ -16,7 +16,9 @@ if (!KEY) {
   process.exit(1);
 }
 
-const MODEL = process.env.VO_MODEL || "eleven_v3";
+// multilingual_v2 holds the voice's real accent steady (no v3 per-generation drift).
+// It ignores [emotion] tags, so they're stripped — delivery comes from voice + punctuation.
+const MODEL = process.env.VO_MODEL || "eleven_multilingual_v2";
 const KEEP_TAGS = MODEL === "eleven_v3"; // only v3 interprets [emotion] tags
 
 // Voice tokens -> ElevenLabs voiceIds.
@@ -30,9 +32,10 @@ const VOICE_MAP = {
 
 // Per-voice settings. SARAH (Jane) reads fast, so she gets higher stability, lower
 // style, and slower speed to calm the pace.
-const DEFAULT_SETTINGS = { stability: 0.35, similarity_boost: 0.8, style: 0.55, use_speaker_boost: true };
+// v2 settings: higher similarity = faithful to the cloned accent; modest style = natural.
+const DEFAULT_SETTINGS = { stability: 0.5, similarity_boost: 0.9, style: 0.2, use_speaker_boost: true };
 const SETTINGS_BY_VOICE = {
-  SARAH: { stability: 0.65, similarity_boost: 0.8, style: 0.2, use_speaker_boost: true, speed: 0.7 },
+  SARAH: { stability: 0.5, similarity_boost: 0.85, style: 0.2, use_speaker_boost: true, speed: 0.8 },
 };
 const settingsFor = (voice) => SETTINGS_BY_VOICE[voice] || DEFAULT_SETTINGS;
 
